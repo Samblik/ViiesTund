@@ -1,10 +1,10 @@
  <?php
  
-	require_once("/home/pihlakre/public_html/if13/Veebiprog-2015/konfig_global.php");
+	require_once("../konfig_global.php");
 	$database = "if13_rene_p";
 	
-	function createUser(){
-		$mysqli = new mysqli($servername, $server_username, $server_password, $database);
+	function createUser($create_email, $password_hash){
+		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		$stmt = $mysqli->prepare("INSERT INTO user_sample (email, password) VALUE (?, ?)");
 				
 				//asendame ? muutujate v22rtustega
@@ -15,6 +15,7 @@
 				$stmt->bind_param("ss",$create_email, $password_hash);
 				$stmt->execute();
 				$stmt->close();
+				
 				$mysqli->close();
 		
 		
@@ -22,8 +23,8 @@
 	
 	//logi sisse
 	
-	function loginUser(){
-				$mysqli = new mysqli($servername, $server_username, $server_password, $database);
+	function loginUser($email, $password_hash){
+				$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 				$stmt = $mysqli->prepare("SELECT id, email FROM user_sample WHERE email=? AND password=?");
 				$stmt->bind_param("ss", $email, $password_hash); //asnendab küsimärgid
 				

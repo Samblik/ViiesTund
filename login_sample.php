@@ -1,6 +1,7 @@
 <?php
 
 	// ühenduse loomiseks kasuta
+	require_once("functions.php");
 
 
   // muuutujad errorite jaoks
@@ -34,7 +35,7 @@
 				echo "Võib sisse logida! Kasutajanimi on ".$email." ja parool on ".$password;
 				
 				$password_hash = hash("sha512", $password);
-				loginUser();
+				loginUser($email, $password_hash);
 ;
 				
 			}
@@ -64,7 +65,7 @@
 				echo "<br>";
 				echo $password_hash;
 				
-				createUser();
+				createUser($create_email, $password_hash);
       }
     } // create if end
 	}
