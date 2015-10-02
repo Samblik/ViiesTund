@@ -3,6 +3,9 @@
 	require_once("../konfig_global.php");
 	$database = "if13_rene_p";
 	
+	//paneme sessiooni k2ima, saame kasutada $_session muutujaid
+	session_start();
+	
 	function createUser($create_email, $password_hash){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		$stmt = $mysqli->prepare("INSERT INTO user_sample (email, password) VALUE (?, ?)");
@@ -37,6 +40,13 @@
 				if($stmt->fetch()){
 					
 					echo "Kasutaja id=".$id_from_db;
+					
+					$_SESSION["id_from_db"] = $id_from_db;
+					$_SESSION["user_email"] = $email_from_db;
+					
+					//suunan kasutaja
+					
+					header("Location: data.php");
 					
 				}
 				else{

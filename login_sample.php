@@ -2,6 +2,15 @@
 
 	// ühenduse loomiseks kasuta
 	require_once("functions.php");
+	
+	//Kontrollin kas kasutaja on sisse loginud
+	if(isset($_SESSION["id_from_db"])){
+		header("Location: data.php");
+		
+		
+		
+	}
+	
 
 
   // muuutujad errorite jaoks
