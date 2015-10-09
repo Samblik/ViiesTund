@@ -65,12 +65,21 @@
 		
 		$stmt = $mysqli->prepare("INSERT INTO car_plates (user_id, number_plate, color) VALUES (?,?,?)");
 		$stmt->bind_param("iss", $_SESSION["id_from_db"], $car_number, $car_color);
-		$stmt->execute();
+		
+		$message = "";
+		if($stmt->execute()){
+			
+		$message = "Eduklat edastatud anbmebaasi";	
+		}else{
+			echo $stmt->error;
+			
+		}
+		
 		$stmt->close();
 		
 		$mysqli->close();
 		
-		
+		return $message;
 	}
 	
  ?>

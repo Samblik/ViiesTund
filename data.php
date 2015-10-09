@@ -48,8 +48,17 @@ if(isset($_POST["add_car"])){
 		// mõlemad on kohustuslikud
 		if($car_color_error == "" && $car_number_error == ""){
 			//salvestate ab'i fn kaudu addCarPlate
-			addCarPlate($car_number, $car_color);
+		$msg = addCarPlate($car_number, $car_color);
 			
+			if($msg != ""){
+				//salvestamine õnnestus
+				
+				$car_number = "";
+				$car_color = "";
+				
+				echo $msg;
+				
+			}
 		}
 		
 	}
@@ -80,7 +89,7 @@ if(isset($_POST["add_car"])){
 	<a href="?logout=1">Logi väljalja</a>
 </p>
 
-  <h2>Log in</h2>
+  <h2>Lisa auto</h2>
   <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >
   	<input name="car_number" type="text" placeholder="Auto number" value="<?php echo $car_number; ?>"> <?php echo $car_number_error; ?><br><br>
   	<input name="car_color" type="text" placeholder="Auto värv" value="<?php echo $car_color; ?>"> <?php echo $car_color_error; ?><br><br>
